@@ -1,4 +1,4 @@
-import './globals.css'
+import '@/app/style/globals.css'
 
 export const metadata = {
   title: 'Baobab Room',
