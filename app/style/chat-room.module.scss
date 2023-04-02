@@ -48,8 +48,9 @@
 
 .chat-message-is-me {
   justify-content: flex-end;
+  text-align: right;
 }
 
 .message-sender{
-  
+  display: block; 
 }

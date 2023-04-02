@@ -13,10 +13,12 @@ function ChatMessage({ message, me }: { message: any; me: any }) {
         isMe ? style["chat-message-is-me"] : style["chat-message-not-me"]
       }`}
     >
-      <div className={style['message-sender']}>
-
+      <div>
+        <div className={style["message-sender"]}>{message?.sender?.name}:</div>
+        <div>
+          <Markdown content={message.text} />
+        </div>
       </div>
-      <Markdown content={message.text} />
     </div>
   );
 }
