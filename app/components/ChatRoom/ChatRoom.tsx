@@ -13,6 +13,9 @@ function ChatMessage({ message, me }: { message: any; me: any }) {
         isMe ? style["chat-message-is-me"] : style["chat-message-not-me"]
       }`}
     >
+      <div className={style['message-sender']}>
+
+      </div>
       <Markdown content={message.text} />
     </div>
   );
@@ -20,9 +23,30 @@ function ChatMessage({ message, me }: { message: any; me: any }) {
 
 function ChatBox() {
   const [messages, setMessages] = useState<any>([
-    { id: uuid(), sender: {}, text: "Hello!" },
-    { id: uuid(), sender: {}, text: "Hi!" },
-    { id: uuid(), sender: {}, text: "Hello again!" },
+    {
+      id: uuid(),
+      sender: {
+        name: "章三",
+        id: uuid(),
+      },
+      text: "Hello!",
+    },
+    {
+      id: uuid(),
+      sender: {
+        name: "里斯",
+        id: uuid(),
+      },
+      text: "Hi!",
+    },
+    {
+      id: uuid(),
+      sender: {
+        name: "找刘",
+        id: uuid(),
+      },
+      text: "Hello again!",
+    },
   ]);
 
   const [currentMessage, setCurrentMessage] = useState<any>(null);
