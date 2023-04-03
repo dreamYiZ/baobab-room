@@ -92,7 +92,12 @@ function ChatBox() {
     console.log("message", currentMessage);
     setMessages([
       ...messages,
-      { id: uuid(), text: currentMessage, sender: me },
+      {
+        id: uuid(),
+        text: currentMessage,
+        sender: me,
+        messageIdx: messages.length,
+      },
     ]);
     setCurrentMessage("");
   };
