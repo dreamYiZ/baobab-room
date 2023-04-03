@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
-import { uuid } from "@/app/util/util";
+import { useEffect, useState } from "react";
 import style from "@/app/style/chat-room.module.scss";
 import { Markdown } from "../Markdown/Markdown";
+import { ACTIONS, localStore as store, uuid } from "../../util/util";
 
 function ChatMessage({ message, me }: { message: any; me: any }) {
   const isMe = me?.id === message?.sender?.id;
@@ -51,7 +51,7 @@ function ChatBox() {
     },
   ]);
 
-  const [currentMessage, setCurrentMessage] = useState<any>(null);
+  const [currentMessage, setCurrentMessage] = useState<any>("");
 
   const me = {
     id: "003",
@@ -73,6 +73,17 @@ function ChatBox() {
     setCurrentMessage("");
   };
 
+  useEffect(() => {
+    const _messages: any = store.get(ACTIONS.MESSAGES);
+    console.log('_messages', _messages)
+    if (_messages && _messages.length) {
+      setMessages(_messages);
+    }
+  }, []);
+
+  useEffect(() => {    
+    store.set(ACTIONS.MESSAGES, messages);
+  }, [messages]);
   return (
     <div className={style["chat-box"]}>
       <div className={style["message-box"]}>

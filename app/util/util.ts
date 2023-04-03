@@ -1,3 +1,5 @@
+export * from "./constants";
+
 // 生成一个随机的16进制数
 function randomHex(): string {
   return Math.floor(Math.random() * 16).toString(16);
@@ -32,3 +34,16 @@ export function copyToClipboard(text: any) {
     .then((res) => {})
     .catch((err) => {});
 }
+
+export const localStore = {
+  set: (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+  },
+  get: (key: string) => {
+    console.log("key--->", key);
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  },
+  clear: () => {
+    localStorage.clear();
+  },
+};
