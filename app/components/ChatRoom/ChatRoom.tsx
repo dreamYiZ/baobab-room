@@ -160,7 +160,7 @@ function ChatBox() {
             message={{ id: uuid(), text: currentMessage, sender: me }}
           />
         )}
-        <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
+        <div className={style["end-div"]} ref={endRef}></div>
       </div>
       <form onSubmit={handleMessageSubmit} className={style["message-form"]}>
         <textarea
