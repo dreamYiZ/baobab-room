@@ -54,16 +54,40 @@
 .chat-message-is-me {
   justify-content: flex-end;
   text-align: right;
+  .message-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
 }
 
-.message-sender{
-  display: block; 
+.message-sender {
+  display: block;
 }
 
-.message-manage-button-group{
-  button{
+.message-manage-button-group {
+  button {
     margin-right: 10px;
     margin-bottom: 10px;
     margin-left: 10px;
+  }
+}
+.message-title {
+  display: flex;
+  align-items: center;
+  > div {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  .message-idx {
+    padding-top: 2px;
+    // border-radius: 10px;
+    // border: 1px solid #CCC;
+    // width: 18px;
+    // min-width: 50px;
+    height: 18px;
+    text-align: center;
+    justify-content: center;
   }
 }

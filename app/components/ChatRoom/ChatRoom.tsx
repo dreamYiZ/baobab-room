@@ -18,9 +18,25 @@ function ChatMessage({ message, me }: { message: any; me: any }) {
         isMe ? style["chat-message-is-me"] : style["chat-message-not-me"]
       }`}
     >
-      <div>
-        <div>{message.messageIdx}</div>
-        <div className={style["message-sender"]}>{message?.sender?.name}:</div>
+      <div className={style["message-container"]}>
+        <div className={style["message-title"]}>
+          {isMe ? (
+            <>
+              <div className={style["message-sender"]}>
+                {message?.sender?.name}
+              </div>
+              -<div className={style["message-idx"]}>{message.messageIdx}</div>
+            </>
+          ) : (
+            <>
+              {" "}
+              <div className={style["message-idx"]}>{message.messageIdx}</div>-
+              <div className={style["message-sender"]}>
+                {message?.sender?.name}
+              </div>
+            </>
+          )}
+        </div>
         <div>
           <Markdown content={message.text} />
         </div>
