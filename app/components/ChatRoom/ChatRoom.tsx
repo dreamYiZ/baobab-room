@@ -1,9 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import style from "@/app/style/chat-room.module.scss";
 import { Markdown } from "../Markdown/Markdown";
-import { ACTIONS, localStore as store, uuid } from "../../util/util";
+import {
+  ACTIONS,
+  LIMIT_RENDER_MESSAGES,
+  localStore as store,
+  uuid,
+} from "../../util/util";
 
 function ChatMessage({ message, me }: { message: any; me: any }) {
   const isMe = me?.id === message?.sender?.id;
@@ -14,6 +19,7 @@ function ChatMessage({ message, me }: { message: any; me: any }) {
       }`}
     >
       <div>
+        <div>{message.messageIdx}</div>
         <div className={style["message-sender"]}>{message?.sender?.name}:</div>
         <div>
           <Markdown content={message.text} />
@@ -53,6 +59,8 @@ function ChatBox() {
 
   const [currentMessage, setCurrentMessage] = useState<any>("");
 
+  const endRef: any = useRef(null);
+
   const me = {
     id: "003",
     name: "Sam",
@@ -75,18 +83,52 @@ function ChatBox() {
 
   useEffect(() => {
     const _messages: any = store.get(ACTIONS.MESSAGES);
-    console.log('_messages', _messages)
+    console.log("_messages", _messages);
     if (_messages && _messages.length) {
-      setMessages(_messages);
+      setMessages(
+        _messages.map((message: any, idx: number) => {
+          message.messageIdx = idx;
+          // message.id = uuid();
+          return message;
+        })
+      );
+
+      setTimeout(() => {
+        endRef.current.scrollIntoView({ behavior: "smooth" });
+      }, 10);
     }
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     store.set(ACTIONS.MESSAGES, messages);
   }, [messages]);
+
+  const testFunc = () => {
+    setMessages((prev: any) => {
+      return new Array(300)
+        .fill(1)
+        .map((i) => prev)
+        .flat()
+        .slice(300);
+    });
+  };
+
+  const clearAll = () => {
+    // store.set(ACTIONS.MESSAGES, []);
+    setMessages([]);
+  };
+
+  const handleScroll = (e: any) => {};
+
+  const goToBottom = () => {
+    setTimeout(() => {
+      endRef.current.scrollIntoView({ behavior: "smooth" });
+    }, 10);
+  };
+
   return (
     <div className={style["chat-box"]}>
-      <div className={style["message-box"]}>
+      <div className={style["message-box"]} onScroll={handleScroll}>
         {messages.map((message: any) => (
           //   <p key={message.id}>{message.text}</p>
           <ChatMessage me={me} key={message.id} message={message} />
@@ -97,6 +139,7 @@ function ChatBox() {
             message={{ id: uuid(), text: currentMessage, sender: me }}
           />
         )}
+        <div style={{ float: "left", clear: "both" }} ref={endRef}></div>
       </div>
       <form onSubmit={handleMessageSubmit} className={style["message-form"]}>
         <textarea
@@ -111,6 +154,12 @@ function ChatBox() {
           发送
         </button>
       </form>
+
+      <div className={style["message-manage-button-group"]}>
+        <button onClick={testFunc}>生成聊天记录</button>
+        <button onClick={clearAll}>清空聊天记录</button>
+        <button onClick={goToBottom}>拉到底部</button>
+      </div>
     </div>
   );
 }

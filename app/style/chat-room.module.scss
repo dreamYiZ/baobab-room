@@ -6,7 +6,8 @@
 }
 .message-box {
   color: black;
-  min-height: 500px;
+  // min-height: 50vh;
+  height: 70vh;
   overflow-y: scroll;
   padding: 20px;
 }
@@ -14,7 +15,7 @@
   color: #000;
   background-color: #fff;
   width: 98%;
-  min-height: 80px;
+  min-height: 60px;
   resize: none;
   border: 1px solid rgb(51, 109, 15);
   border-radius: 10px;
@@ -36,7 +37,11 @@
 
 .message-box::-webkit-scrollbar {
   //   display: none;
-  width: 6px;
+  // width: 6px;
+  width: 3px;
+  background-color: #3a9551;
+  color: red;
+  border-radius: 5px;
 }
 
 .chat-message {
@@ -53,4 +58,12 @@
 
 .message-sender{
   display: block; 
+}
+
+.message-manage-button-group{
+  button{
+    margin-right: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+  }
 }
